@@ -49,7 +49,6 @@
                                 <state key="normal" title="Forecast"/>
                                 <connections>
                                     <action selector="foreCastButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fMg-Qf-0bW"/>
-                                    <segue destination="tay-zr-blH" kind="show" id="qgK-sc-7xX"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i4J-iA-Tgb">
@@ -94,28 +93,53 @@
                         <outlet property="maxLabel" destination="q7m-b2-rXY" id="lqE-Fc-uR8"/>
                         <outlet property="minLabel" destination="Hex-FS-Beb" id="fLe-Uk-WUb"/>
                         <outlet property="searchField" destination="AP6-fq-5ds" id="JhB-Sf-hV0"/>
+                        <segue destination="tay-zr-blH" kind="show" identifier="segueToForecast" id="fx9-ew-ffv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="864.79999999999995" y="133.5832083958021"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Forecast Table View Controller-->
         <scene sceneID="wO2-vg-ckW">
             <objects>
-                <tableViewController id="tay-zr-blH" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="OUz-9b-f5t">
+                <tableViewController id="tay-zr-blH" customClass="ForecastTableViewController" customModule="OpenWeatherMapAPI_starter" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="OUz-9b-f5t">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="02t-AY-RKE">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="forecastCell" rowHeight="75" id="02t-AY-RKE" customClass="ForecastTableViewCell" customModule="OpenWeatherMapAPI_starter" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="375" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="02t-AY-RKE" id="eXE-y8-yaw">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="74"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ke2-AJ-HUq">
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-gg-Ta1">
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Ke2-AJ-HUq" firstAttribute="top" secondItem="eXE-y8-yaw" secondAttribute="topMargin" constant="10" id="Fhk-SM-9Fp"/>
+                                        <constraint firstItem="Ke2-AJ-HUq" firstAttribute="trailing" secondItem="eXE-y8-yaw" secondAttribute="trailingMargin" constant="10" id="SUr-PG-EX9"/>
+                                        <constraint firstItem="A7g-gg-Ta1" firstAttribute="trailing" secondItem="Ke2-AJ-HUq" secondAttribute="trailing" id="Z4m-Qm-bJC"/>
+                                        <constraint firstItem="A7g-gg-Ta1" firstAttribute="leading" secondItem="Ke2-AJ-HUq" secondAttribute="leading" id="dS7-yy-0b2"/>
+                                        <constraint firstItem="A7g-gg-Ta1" firstAttribute="top" secondItem="Ke2-AJ-HUq" secondAttribute="bottom" id="gHE-8B-GOk"/>
+                                        <constraint firstItem="Ke2-AJ-HUq" firstAttribute="leading" secondItem="eXE-y8-yaw" secondAttribute="leadingMargin" constant="10" id="y84-S6-xF8"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateLabel" destination="A7g-gg-Ta1" id="OD2-Z0-IvK"/>
+                                    <outlet property="descriptionLabel" destination="Ke2-AJ-HUq" id="jvm-bv-LCR"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -126,7 +150,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GFJ-pI-P3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1574" y="134"/>
+            <point key="canvasLocation" x="1573.5999999999999" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LjS-oe-78p">

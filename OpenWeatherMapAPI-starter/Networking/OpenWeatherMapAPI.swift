@@ -19,7 +19,9 @@ class OpenWeatherMapAPI {
     
     func createParameterURL(forCity: String, temperatureUnit: TemperatureUnit, days: Int = -1) -> String {
         var resultParameterURL : String = "?"
-        resultParameterURL += "q=\(forCity)"
+        var tempCity = forCity.replacingOccurrences(of: " ", with: "+")
+        
+        resultParameterURL += "q=\(tempCity)"
         
         if temperatureUnit == .celsius {
             resultParameterURL += "&units=metric"
@@ -55,6 +57,7 @@ class OpenWeatherMapAPI {
                 let minTemp = json["main"]["temp_min"].doubleValue
                 let avgTemp = json["main"]["temp"].doubleValue
                 let description = json["weather"][0]["description"].stringValue
+                let date : NSDate = NSDate(timeIntervalSince1970: TimeInterval(json["dt"].intValue))
                 
                 
                 
@@ -72,7 +75,7 @@ class OpenWeatherMapAPI {
                 
                 
                 //        let weatherObject = Weather.Weather()
-                let weatherObj = Weather(description: description, minTemperature: minTemp, maxTemperature: maxTemp, avgTemperature: avgTemp, temperatureUnit: temperatureUnit)
+                let weatherObj = Weather(description: description, minTemperature: minTemp, maxTemperature: maxTemp, avgTemperature: avgTemp, temperatureUnit: temperatureUnit, date: date)
                 
                 completionHandler(weatherObj)
                 
@@ -107,7 +110,8 @@ class OpenWeatherMapAPI {
                     let minTemp = jsonList[i]["temp"]["min"].doubleValue
                     let avgTemp = jsonList[i]["deg"].doubleValue
                     let description = jsonList[i]["weather"][0]["description"].stringValue
-                    let weatherObj = Weather(description: description, minTemperature: minTemp, maxTemperature: maxTemp, avgTemperature: avgTemp, temperatureUnit: temperatureUnit)
+                    let date : NSDate = NSDate(timeIntervalSince1970: TimeInterval(jsonList[i]["dt"].intValue))
+                    let weatherObj = Weather(description: description, minTemperature: minTemp, maxTemperature: maxTemp, avgTemperature: avgTemp, temperatureUnit: temperatureUnit, date: date)
                     weatherArray.append(weatherObj)
                 }
                 
@@ -162,6 +166,5 @@ class OpenWeatherMapAPI {
         
         
 }
-
 
 

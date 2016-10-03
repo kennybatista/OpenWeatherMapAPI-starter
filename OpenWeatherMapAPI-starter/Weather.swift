@@ -21,6 +21,7 @@ struct Weather {
     let maxTemperature: Double
     let avgTemperature: Double
     let temperatureUnit: TemperatureUnit
+    let date : NSDate
 }
 /*
 func tempConversion(unit : TemperatureUnit, kelvinValue : Double) -> Double{
