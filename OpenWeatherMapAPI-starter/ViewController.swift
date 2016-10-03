@@ -15,13 +15,31 @@ class ViewController: UIViewController {
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var maxLabel: UILabel!
     
-    
+    var forecastData : [Weather] = []
     
     
     @IBAction func goButton(_ sender: UIButton) {
+
+        //    openWeatherMapAPI.requestCurrentWeather()
+        
+        openWeatherMapAPI.requestTodaysWeather(city: searchField.text!, completionHandler: { (weather: Weather) -> Void in
+            
+            
+            self.minLabel.text = "Min: \(weather.minTemperature)°"
+            self.maxLabel.text = "Max: \( weather.maxTemperature)°"
+            self.descriptionLabel.text = "Descritption: \(weather.description)"
+            
+        })
+        //        openWeatherMapAPI.requestTodaysWeather(city: "Boston", completionHandler: whatShouldHappenToTheWeather)
+    
     }
     
     @IBAction func foreCastButton(_ sender: UIButton) {
+        openWeatherMapAPI.requestWeatherForecast(city: searchField.text!, days: Int(howManyDaysTextField.text!)!, completionHandler: { (weather: [Weather]) -> Void in
+            
+            self.forecastData = weather
+            print(weather)
+        })
     }
     
     
@@ -32,13 +50,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //    openWeatherMapAPI.requestCurrentWeather()
-        print("Start of our testing")
-        openWeatherMapAPI.requestTodaysWeather(city: "Boston", completionHandler: { (weather: Weather) -> Void in
-            print("It's working")
-        
-        })
-//        openWeatherMapAPI.requestTodaysWeather(city: "Boston", completionHandler: whatShouldHappenToTheWeather)
     }
     
 }
